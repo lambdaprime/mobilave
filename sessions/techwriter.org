@@ -102,3 +102,9 @@ Based on design document and code example write a javadoc documentation accordin
 Any text inside %% must be replaced with actual documentation.
 
 Final javadoc will be included into ~module-info.java~ and will be visible from the module main page.
+
+* User - write project README.md
+
+Look at the project and try to understand what it is about.
+
+Write a README.md for it.
