@@ -1,0 +1,104 @@
+* System
+
+[[file:../agents/techwriter.org][techwriter]]
+
+* User - write documentation
+
+Write a documentation for a project based on the following information:
+
+[[file:~/tmp/diff][~/tmp/diff]]
+
+* User - update design document based on code changes
+
+List all source files and ignore those which define Exception types.
+
+For every source file run a subagent and assign it following ~task~:
+
+#+begin_example
+Read the code of a Java class from the file "{file}" and the design document from "sdd.org".
+
+Ensure that design document is up-to-date with the source code:
+- update the design document *ONLY* if you see some discrepancies
+#+end_example
+
+Inside ~task~ you are only allowed to replace ~{file}~ placeholder with the exact path to the source file.
+
+* User - write design document for an existing project
+
+You have access to all source files of XXX project and you need to write its design document.
+
+List all source files and ignore those which define Exception types.
+
+For every source file run a subagent and assign it following ~task~:
+
+#+begin_example
+Read the code of a Java class from the file "{file}". This file is part of XXX project.
+
+Write a summary of this class, what role it plays inside XXX.
+
+This summary later will be used to write a complete design document on XXX.
+#+end_example
+
+Inside ~task~ you are only allowed to replace ~{file}~ placeholder with the exact path to the source file.
+
+At the end, based on all the subagents results, write a design document for XXX.
+
+* User - write module level javadoc
+
+** DESIGN
+
+[[file:~/tmp/sdd.org][desing document]]
+
+** EXAMPLE
+
+[[file:~/tmp/ExampleTest.java][code example]]
+
+** TASK
+
+Based on design document and code example write a javadoc documentation according to the following template:
+
+#+begin_src java
+/**
+ * <b>%module name%</b> - %short description%.
+ *
+ * <p>Available functionality:
+ *
+ * <ol>
+ *   <li>%functionality1%
+ *   <li>%functionality2%
+ *   <li>...
+ *   <li>%functionalityN%
+ * </ol>
+ *
+ * %description continued%
+ *
+ * <h2>Requirements</h2>
+ *
+ * <ul>
+ *   <li>%min version of Java%
+ *   <li>%any additional environment dependencies%
+ * </ul>
+ *
+ * <h2>Usage</h2>
+ *
+ * %usage description%
+ *
+ * <h2>Examples</h2>
+ *
+ * {@snippet lang="java" :
+ * %code snippet demonstrating some of available functionality%
+ * %ensure to include imports as needed%
+ * }
+ * 
+ * @see <a href="http://pinoweb.freetzi.com/">Documentation</a>
+ * @see %links to any additional documentation or resources%
+ * @see <a
+ *     href="https://github.com/lambdaprime/release/CHANGELOG.md">Releases</a>
+ * @see <a href="https://github.com/lambdaprime">Source Repository</a>
+ * @author lambdaprime intid@protonmail.com
+ */  
+#+end_src
+
+Any text inside %% must be replaced with actual documentation.
+
+Final javadoc will be included into ~module-info.java~ and will be visible from the module main page.

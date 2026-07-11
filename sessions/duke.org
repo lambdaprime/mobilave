@@ -1,0 +1,41 @@
+* System
+
+[[file:../agents/duke.org][duke]]
+
+* User - TODOs
+
+Now, complete all "TODO" comments in the given code:
+
+[[file:~/tmp/code.java][Class to update]]
+
+Final result write to a source file.
+
+* User - write unit test
+
+Now, write unit tests for the given class:
+
+[[file:~/tmp/code.java][Class to update]]
+
+Final result write to a source file.
+
+* User - create classes according to design document
+
+I have following ~task definition~ to create classes:
+
+#+begin_example
+Now, create {class} class according to the design document and write it to a file.
+Never output the entire class body to a user, always write it to a file.
+
+Don't create anything else. Focus only on {class}.
+
+At the end, return only name of the file where class was written.
+#+end_example
+
+Use this ~task definition~ to run subagents to create all classes given below:
+- ClassA
+- ClassB
+- ...
+
+Inside ~task definition~ you are only allowed to replace ~{class}~ placeholder.
+
+Run only one subagent per class.

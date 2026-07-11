@@ -1,0 +1,11 @@
+* Update multiple files
+
+List all source files and ignore those which define Exception types.
+
+For every source file run a subagent and assign it following ~task~:
+
+#+begin_example
+Update Java class file "{file}" to ...
+#+end_example
+
+Inside ~task~ you are only allowed to replace ~{file}~ placeholder with the exact path to the source file.
