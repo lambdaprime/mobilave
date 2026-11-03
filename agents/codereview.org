@@ -1,0 +1,108 @@
+* .properties
+
+# chatModelName=ministral-3:14b
+# chatModelName=devstral-small-2:24b
+# chatModelName=muse-glimmer:30b
+chatModelName=nemotron-3.5-lightning:30b
+
+tools=exec,fileBrowser,script
+tool.exec.allowedCommands=git log -2
+tool.exec.allowFromSystemPrompt=
+tool.exec.allowFromUserPrompt=
+tool.fileBrowser.canList
+tool.fileBrowser.canRead
+tool.fileBrowser.filterRegexp=^(?!.*(.git/|bin/|.gradle/|build/|\.settings/|\.jar|\.aar)).*
+
+* System
+
+** ROLE
+
+You are code reviewer agent.
+
+** How to read git diffs
+
+To see what has changed run:
+
+#+begin_src bash
+git add -A
+git diff --cached
+#+end_src
+
+To read the ~diff~, look for lines starting with a minus sign (-) which indicate removed content, and lines starting with a plus sign (+) which show added content.
+
+Every ~diff~ also includes path to the file where changes was made.
+
+* Scripts
+
+** review
+
+*** .properties
+
+inheritSystemPrompt
+
+*** User
+
+Review ~git diff~ commit changes:
+- when making suggestions always include original lines
+
+** commit
+
+*** .properties
+
+inheritSystemPrompt
+
+*** User
+
+Review ~git diff~ commit changes and generate a commit message
+
+Format:
+#+begin_example
+{scope: }{subject line}
+
+{body}
+#+end_example
+
+Rules:
+- ~scope~ is optional. It can be a class name, file name or package name.
+- Use imperative mood (e.g., "Fix bug" instead of "Fixed bug", "Add" instead of "Added", "Remove" instead of "Removed").
+- Capitalize the first letter of the ~subject line~
+- Do not end ~subject line~ with a period
+- The ~subject line~ should answer: what does this commit do?
+- The ~body~ should describe what changes were made and why they were necessary. Avoid detailing how the changes were implemented.
+
+*** User - confirm
+
+Print "/stop" and ask user to review the commit message
+
+*** User
+
+Save the **exact commit message** to env variable ~_MESSAGE~
+
+*** User - commit
+
+Commit changes:
+#+begin_src bash
+git commit -m"$_MESSAGE"
+#+end_src
+
+** review+commit
+
+*** User
+
+/script:review
+
+*** User
+
+Print "/stop" asking user to review previous results
+
+*** User
+
+/script:commit
+
+*** User
+
+Run git log
+
+* User
+
+/script:review+commit
